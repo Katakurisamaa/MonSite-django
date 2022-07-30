@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titre %}Boutique{% endblock %}
+
+{% block content %}
+<section class="container-fluid mt-2 mb-5">
+    <div class="container">
+        <img w-100 src="{% static 'images/cover.jpg' %}" class="img-thumbnail" alt="">
+    </div>
+</section>
+
+<section>
+    <div class="container-fluid">
+        <hr>
+        <span class="text-white">{{article_count}} articles trouvé.s</span>
+        <hr>
+        <div class="row">
+            {% for article in articles %}
+            <div class="col-lg-4 col-sm-6">
+                <a href="{{article.get_url}}">
+                    <span><img src="{{article.images.url}}" class="img-thumbnail" alt=""></span>
+                </a>
+                <span><h4 class="text-center">{{article.product_name}}</h4></span>
+                <span class="h5">{{ article.price }}€</span>
+                <p class="mt-2"><a href="{{article.get_url}}" class="btn bg-primary btn-sm">voir plus</a></p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

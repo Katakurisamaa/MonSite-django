@@ -1,0 +1,17 @@
+body {
+    background: linear-gradient(black,#CCADE6, blue);
+}
+
+/* .accueil {
+    background: linear-gradient(black,#CCADE6, blue);
+} */
+.contenu{
+    margin-top: 4px;
+}
+.category {
+    background: url("/media/category_img/bg.jpg");
+}
+
+.recherche {
+    margin-top: 15px;
+}

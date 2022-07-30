@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-sm-6">
+            <span><img w-100 src="{{ article.images.url }}" class="img-thumbnail" alt=""></span>
+            <span><h4 class="text-center">{{ article.product_name }}</h4></span>
+            <span class="h3">{{article.price}}€</span>
+            <hr>
+            {% if article.stock <= 0 %}
+            <span class="text-danger">
+                <b>Il semblerait que cet article soit en rupture de stock pour le moment</b>
+                <svg xmlns="http://www.w3.org/2000/svg" color="yellow" width="26" height="26" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                  </svg>
+            </span>
+            {% else %}
+            {% if article.stock == 1 %}
+            <span class="text-danger">
+                <b>Dépêchez-vous Il ne reste plus que {{article.stock}} article en stock.</b>
+            </span>
+            {% elif article.stock <= 10 %}
+            <span class="text-danger">
+                <b>Il ne reste plus que {{article.stock}} articles en stock.</b>
+            </span>
+            {% elif article.stock > 10 %}
+            <span style="color:green;"><b>{{article.stock}} articles en stock</b></span>
+            {% endif %}
+            <hr>
+            <div class="row">
+                <div class="d-grid gab-2 col mb-2">
+                    <a href="#" class="btn bg-warning">Ajouter au panier</a>
+                </div>
+                <div class="d-grid gab-2 col mb-2">
+                    <a href="#" class="btn" style="background-color:orange;">Acheter maintenant</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-sm-6 mt-2">
+            <p class="text-center h5"><b>Description</b></p>
+            <hr>
+            {{article.description}}
+            <hr>
+        </div>
+    </div>
+    <div class="form-floating mt-5 mb-1">
+        <textarea class="form-control" placeholder="Laissez un commentaire" id="floatingTextarea2" style="height: 100px"></textarea>
+        <label for="floatingTextarea2" class="text-center">Laissez un commentaire</label>
+    </div>
+    <a href="#" class="btn bg-secondary">choisir une image</a>
+    <a href="#" class="btn bg-success">soumettre</a>
+</div>
+{% endblock %}

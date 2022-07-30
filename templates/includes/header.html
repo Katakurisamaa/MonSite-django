@@ -1,0 +1,133 @@
+{% load static %}
+<section class="">
+  <div class="container-fluid" style="background-color:blue;">
+    <div class="row">
+      <div class="dropdown-end col-6">
+        <a href="#" class="dropdown-toggle text-reset" data-bs-toggle="dropdown" aria-expanded="false">
+          <span style="color:white;">Langue</span> <span style="color:white;">(FR)</span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">FR</a></li>
+          <li><a class="dropdown-item" href="#">ENG</a></li>
+          <li><a class="dropdown-item" href="#">TK</a></li>
+        </ul>
+      </div>
+      <div class="float-end dropdown-end col-6">
+        <a href="#" class="dropdown-toggle text-reset" data-bs-toggle="dropdown" aria-expanded="false">
+          <span style="color:white;">Devise</span> <span style="color:white;">(EUR)</span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">EUR</a></li>
+          <li><a class="dropdown-item" href="#">US</a></li>
+          <li><a class="dropdown-item" href="#">FCFA</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sticky-top">
+  <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container">
+        <div>
+          <a class="navbar-brand" href="{% url 'accueil' %}">
+            <img width="70px" src="{% static 'images/logo.jpeg' %}" alt="">
+          </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 navig">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'accueil' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-door mb-1" viewBox="0 0 16 16">
+                  <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+                </svg> Accueil
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-reset" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-telephone mb-1" viewBox="0 0 16 16">
+                  <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                </svg> <span>Contact</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-reset">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle mb-1" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg> <span>Mon compte</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-reset" href="{% url 'boutique' %}">Boutique</a>
+            </li>
+          </ul>
+          <form class="d-flex recherche" role="search">
+              <input class="form-control me-2" type="search" placeholder="Tapez vos recherches ici. . ." aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Recherche</button>
+          </form>
+        </div>
+  
+        <div class="navbar-sm carte">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">S'inscrire</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Se connecter</a>
+            </li>
+  
+            <li class="nav-item">
+              <button type="button" class="btn position-relative">
+                <a href="#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                    <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                  </svg>
+                </a>
+                <span class="position-absolute top-0 start-60 translate-middle badge rounded-pill">
+                  <span class="h5" style="color:red;">0</span>
+                  <span class="visually-hidden">unread messages</span>
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+  </nav>
+
+  <div class="d-flex container-fluid flex-wrap" style="background-color:rgb(204, 173, 230);">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'accueil' %}">ACCUEIL</a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-reset" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight">
+            CATÉGORIES
+            </a>
+            <div class="offcanvas offcanvas-end category" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title text-white text-center" id="offcanvasRightLabel">CATÉGORIES</h5>
+                    <button style="background-color:white;" color="white" type="button" class="btn-sm-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="row">
+                        <div class="col-12 text-center text-white pb-2">
+                          <a href="{% url 'boutique' %}" class="text-reset">VOIR TOUS LES ARTICLES</a>
+                        </div>
+                        {% for category in links %}
+                        <div class="col-12 text-center text-white pb-2">
+                          <a href="{{ category.get_url }}" class="text-reset">{{ category.category_name }}</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+    </ul>
+  </div>
+</section>
