@@ -8,24 +8,69 @@
         <img w-100 src="{% static 'images/cover.jpg' %}" class="img-thumbnail" alt="">
     </div>
 </section>
-
+<!-- style="background-color:lightgray;" -->
 <section>
     <div class="container-fluid">
+        <div>
+            {% if 'search' in request.path %}
+                <h2 class="text-center">Résultat de la recherche</h2>
+            {% else %}
+                <h2 class="text-center">Vous êtes chez <span style="color:#821B74">Soso Relooking</span>.</h2>
+            {% endif %}
         <hr>
-        <span class="text-white">{{article_count}} articles trouvé.s</span>
+        <span class="texte">{{article_count}} article(s) trouvé(s)</span>
         <hr>
-        <div class="row">
-            {% for article in articles %}
-            <div class="col-lg-4 col-sm-6">
-                <a href="{{article.get_url}}">
-                    <span><img src="{{article.images.url}}" class="img-thumbnail" alt=""></span>
-                </a>
-                <span><h4 class="text-center">{{article.product_name}}</h4></span>
-                <span class="h5">{{ article.price }}€</span>
-                <p class="mt-2"><a href="{{article.get_url}}" class="btn bg-primary btn-sm">voir plus</a></p>
-            </div>
-            {% endfor %}
         </div>
+        <div class="row">
+            {% if articles %}
+                {% for article in articles %}
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="{{article.get_url}}">
+                            <span><img src="{{article.images.url}}" class="img-thumbnail" alt=""></span>
+                        </a>
+                        <span><h4>{{article.product_name}}</h4></span>
+                        <span class="h5">{{ article.price }}€</span>
+                        <p class="mt-2"><a href="{{article.get_url}}" class="btn bg-primary btn-sm">voir plus</a></p>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <div>
+                <h2 style="color:red;">
+                    Aucun article portant ce nom n'a été trouvé, veuillez reéssayer
+                    <svg xmlns="http://www.w3.org/2000/svg" color="black" width="26" height="26" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                    </svg>.
+                </h2>
+            </div>
+            {% endif %}
+        </div>
+
+        <nav class="mt-4" aria-label="Page navigation sample">
+            {% if articles.has_other_pages %}
+              <ul class="pagination">
+                    {% if articles.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{articles.previous_page_number}}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    {% endif %}
+        
+                    {% for i in articles.paginator.page_range %}
+                        {% if articles.number == i %}
+                        <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                {% endfor %}
+        
+                    {% if articles.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{articles.next_page_number}}">Next</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    {% endif %}
+              </ul>
+            {% endif %}
+        </nav>
     </div>
 </section>
 {% endblock %}

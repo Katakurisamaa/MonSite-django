@@ -1,0 +1,101 @@
+{% if not cart_items %}
+<h2 class="mt-2 text-center">
+  Votre panier est vide 
+  <svg xmlns="http://www.w3.org/2000/svg" color="black" width="26" height="26" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+    <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+  </svg>
+</h2>
+ <br>
+<center class="mb-4">
+  <a href="{% url 'boutique' %}" class="btn bg-primary btn">
+    Poursuivre mes achats
+  </a>
+</center>
+{% else %}
+<div class="container mt-2">
+  <h2>
+    <span>Mon Panier</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-cart3"
+      viewBox="0 0 16 16">
+      <path
+        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </svg>
+  </h2>
+  <div class="row">
+    <div class="col-sm-8 mb-4">
+      <div class="row">
+        {% for cart_item in cart_items %}
+        <div class="col-6 mb-2">
+          <img w-100 src="{{ cart_item.product.images.url }}" class="img-thumbnail" alt="">
+        </div>
+        <div class="col-6 mb-2">
+          <p>
+            <span class="text-muted">Prix de l'article:</span>
+            <span class="text-muted">{{ cart_item.product.price }}€</span>
+          </p>
+
+          <p>
+            <span class="text-muted">Quantité</span>
+              <div class="row ">
+                <div class="col-2 input-minus me-2 mt-1">
+                  <a href="{% url 'remove_cart' cart_item.product.id %}" class="btn" style="background-color:whitesmoke;" type="button" id="button-minus"><i class="fa fa-minus"></i></a>
+                </div>
+                
+                <div class="col-4 inline-block">
+                  <form action="">
+                    <input type="text" class="form-control text-center" value="{{ cart_item.quantity }}">
+                  </form>
+                </div>
+                <div class="col-2 input-plus mt-1">
+                  <a href="{% url 'add_cart' cart_item.product.id %}" style="background-color:whitesmoke;" class="btn btn-light" type="button" id="button-plus"><i class="fa fa-plus"></i></a>
+                </div>
+              </div>
+          </p>
+
+          <p>
+            <span class="text-muted">Prix total:</span>
+            <span class="text-muted">{{ cart_item.sub_total}}€</span>
+          </p>
+
+          <p>
+            <a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-danger">Supprimer</a>
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col-sm-4 mb-2" style="background-color:white;">
+      <div class="row">
+        <div class="col-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">PRIX TOTAL</th>
+                <th scope="col">LIVRAISON</th>
+                <th scope="col">TOTAUX</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center">{{total}}€</td>
+                <td class="text-center">{{ tax }}€</td>
+                <td class="text-center">{{ grand_total }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="col-12 text-center mt-1">
+            <img src="{% static 'payments.png' %}" alt="">
+          </div>
+          <div class="d-grid col-12 text-center mt-5">
+            <a href="#" class="btn btn-primary btn">Commander</a>
+          </div>
+          <div class="d-grid col-12 text-center mt-2 mb-2">
+            <a href="{% url 'boutique' %}" class="btn bg-light btn">Poursuivre mes achats</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

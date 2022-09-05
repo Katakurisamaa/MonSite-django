@@ -1,5 +1,6 @@
 body {
-    background: linear-gradient(black,#CCADE6, blue);
+    /* background: linear-gradient(black,#CCADE6, blue); */
+    background: whitesmoke;
 }
 
 /* .accueil {
@@ -9,9 +10,34 @@ body {
     margin-top: 4px;
 }
 .category {
-    background: url("/media/category_img/bg.jpg");
+    /* background: url("/media/category_img/bg.jpg"); */
+    background: linear-gradient(black,#CCADE6,blue);
 }
 
 .recherche {
     margin-top: 15px;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.float-end {
+    float: inline-end;
+}
+
+.input-group{
+    width: 100%;
+}
+
+.finalisation{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+#button-plus{
+    margin-left: 0px;
+}
+#button-minus{
+    margin-left: 0px;
 }
