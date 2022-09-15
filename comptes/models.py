@@ -5,10 +5,10 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 class MyAccountManager(BaseUserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
         if not email:
-            raise ValueError('User must have an email address')
+            raise ValueError('Vous devez renseigner votre mail')
 
         if not username:
-            raise ValueError('User must have an username')
+            raise ValueError("Vous devez renseigner un nom d'utilisateur")
 
         user = self.model(
             email = self.normalize_email(email),
@@ -66,6 +66,3 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, add_label):
         return True
-
-    def __str__(self):
-        return self.user.first_name

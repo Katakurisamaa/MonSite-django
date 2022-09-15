@@ -4,10 +4,14 @@
 {% block content %}
 <div class="container mt-2">
     <form action="{% url 'add_cart' article.id %}" method="POST">
-        {% csrf_token%}
+        {% csrf_token %}
         <div class="row">
             <div class="col-sm-6">
-                <span><img w-100 src="{{ article.images.url }}" class="img-thumbnail" alt=""></span>
+                <figure class="figure">
+                    <img src="{{ article.images.url }}" class="figure-img img-fluid rounded" alt="img-detail">
+                    <figcaption class="figure-caption"></figcaption>
+                </figure>
+                <!-- <span><img w-100 src="{{ article.images.url }}" class="img-thumbnail" alt=""></span> -->
             </div>
                 
             <div class="col-sm-6">
@@ -63,7 +67,8 @@
                 <span style="color:green;"><b>{{article.stock}} articles en stock</b></span>
                 <hr>
                 {% endif %}
-                {% if in_cart %}
+                
+                {% if in_cart%}
                 <div class="row">
                     <div class="d-grid gab-2 col mb-2">
                         <button type="submit" href="#" class="btn bg-warning">Ajouter au panier</button>

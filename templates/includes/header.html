@@ -53,33 +53,41 @@
                 </svg> <span>Contact</span>
               </a>
             </li>
+            {% if user.id is not None %}
             <li class="nav-item">
-              <a href="#" class="nav-link text-reset">
+              <a href="{% url 'dashboard' %}" class="nav-link text-reset">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle mb-1" viewBox="0 0 16 16">
                   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                 </svg> <span>Mon compte</span>
               </a>
             </li>
+            {% endif %}
             <li class="nav-item">
               <a class="nav-link text-reset" href="{% url 'boutique' %}">Boutique</a>
             </li>
           </ul>
-          <form action="{% url 'search' %}" method="Get" class="d-flex recherche" role="search">
+          <div class="form-group">
+            <form action="{% url 'search' %}" method="Get" class="d-flex recherche" role="search">
               <input class="form-control me-2" type="search" placeholder="Tapez vos recherches ici. . ." name="keyword" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Recherche</button>
-          </form>
+            </form>
+          </div>
         </div>
-  
         <div class="navbar-sm carte">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if user.id is None %}
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">S'inscrire</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'register' %}">Inscription</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Se connecter</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Connexion</a>
             </li>
-  
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Déconnexion</a>
+            </li>
+            {% endif %}
             <li class="nav-item">
               <button type="button" class="btn position-relative">
                 <a href="{% url 'cart' %}">
@@ -96,6 +104,8 @@
           </ul>
         </div>
       </div>
+
+    </div>
   </nav>
 
   <div class="d-flex container-fluid flex-wrap" style="background-color:rgb(204, 173, 230);">
@@ -109,17 +119,17 @@
             CATÉGORIES
             </a>
             <div class="offcanvas offcanvas-end category" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title text-white text-center" id="offcanvasRightLabel">CATÉGORIES</h5>
-                    <button style="background-color:white;" color="white" type="button" class="btn-sm-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <div class="offcanvas-header" style="background-color:white;">
+                    <h5 class="offcanvas-title text-center" id="offcanvasRightLabel">CATÉGORIES</h5>
+                    <button style="background-color:black;" type="button" class="btn-sm-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body">
+                <div class="offcanvas-body" style="background-color:white;">
                     <div class="row">
-                        <div class="col-12 text-center text-white pb-2">
+                        <div class="col-12 text-center pb-2">
                           <a href="{% url 'boutique' %}" class="text-reset">VOIR TOUS LES ARTICLES</a>
                         </div>
                         {% for category in links %}
-                        <div class="col-12 text-center text-white pb-2">
+                        <div class="col-12 text-center pb-2">
                           <a href="{{ category.get_url }}" class="text-reset">{{ category.category_name }}</a>
                         </div>
                         {% endfor %}

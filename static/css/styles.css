@@ -1,17 +1,18 @@
 body {
-    /* background: linear-gradient(black,#CCADE6, blue); */
+    /* background:linear-gradient(#8a307f, #79a7d3, #6883bc); */
     background: whitesmoke;
 }
 
-/* .accueil {
+/* .section-content {
     background: linear-gradient(black,#CCADE6, blue);
 } */
 .contenu{
     margin-top: 4px;
 }
 .category {
+    background: palegreen;
     /* background: url("/media/category_img/bg.jpg"); */
-    background: linear-gradient(black,#CCADE6,blue);
+    /* background: linear-gradient(black,#CCADE6,blue); */
 }
 
 .recherche {
@@ -34,10 +35,6 @@ body {
     margin-left: 2%;
     margin-right: 2%;
 }
-
-#button-plus{
-    margin-left: 0px;
-}
-#button-minus{
-    margin-left: 0px;
+.marge{
+    margin-top: 100px;
 }
