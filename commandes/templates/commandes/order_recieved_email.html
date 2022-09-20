@@ -1,0 +1,9 @@
+{% autoescape off %}
+{% load static %}
+Salut {{user.first_name}},
+
+VOTRE COMMANDE A ÉTÉ REÇUE!
+
+Numéro de la commande : {{order.order_number}}.
+
+{% endautoescape %}

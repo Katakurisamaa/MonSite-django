@@ -2,137 +2,138 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-2">
-    <form action="{% url 'add_cart' article.id %}" method="POST">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-sm-6">
-                <figure class="figure">
-                    <img src="{{ article.images.url }}" class="figure-img img-fluid rounded" alt="img-detail">
-                    <figcaption class="figure-caption"></figcaption>
-                </figure>
-                <!-- <span><img w-100 src="{{ article.images.url }}" class="img-thumbnail" alt=""></span> -->
-            </div>
-                
-            <div class="col-sm-6">
-                <span><h4>{{ article.product_name }}</h4></span>
-                <span class="h3">{{article.price}}€</span>
-                <hr>
-                {% if article.category.category_name == "Chaussure" or article.category.category_name == "Perruque" or article.category.category_name == "Mèche"%}
-                    <div class="row">
-                        <div class="item-option-select mt-2">
-                            <h6>Couleur</h6>
-                            <select name="color" class="form-control" required>
-                                <option value="" disabled selected class="text-center">Sélectionner</option>
-                                {% for i in article.variation_set.colors %}
-                                <option value="{{i.variation_value | lower}}">{{i.variation_value | capfirst}}</option>
-                                {% endfor %}
-                            </select>
+<div class="container mt-4">
+    <aside class="">
+        <form action="{% url 'add_cart' article.id %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="card" style="max-width: 1140px;">
+                    <div class="row g-0">
+                      <div class="col-md-4 mt-2">
+                        <!-- <figure>
+                            <img src="{{ article.images.url }}" class="img-fluid rounded-start" alt="...">
+                            <figcaption>{{article.price}}€</figcaption>
+                        </figure> -->
+                        <img src="{{ article.images.url }}" class="img-fluid rounded-start" alt="...">
+                        <p class="card-text"><small class="text-muted">Dernière mise à jour il y a 3 mois.</small></p>
+                        <p class="card-text"><small class="text-muted">.</small></p>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ article.product_name }}.</h5>
+                          <p class="text-justify">
+                            {{article.description}}
+                          </p>
+                          <p class="card-text h3">{{article.price}}€</p>
+                          <p><strike class="text-muted">300€</strike></p>
+                          <p>
+                            {% if article.category.category_name == "Chaussure" or article.category.category_name == "Perruque" or article.category.category_name == "Mèche"%}
+                        <div class="row">
+                            <div class="item-option-select mt-2">
+                                <h6>Couleur</h6>
+                                <select name="color" class="form-control" required>
+                                    <option value="" disabled selected class="text-center">Sélectionner</option>
+                                    {% for i in article.variation_set.colors %}
+                                    <option value="{{i.variation_value | lower}}">{{i.variation_value | capfirst}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="item-option-select mb-3">
-                            <h6>Taille</h6>
-                            <select name="size" class="form-control" required>
-                                <option value="" disabled selected class="text-center">Sélectionner</option>
-                                {% for i in article.variation_set.sizes %}
-                                <option value="{{i.variation_value | lower}}">{{i.variation_value | capfirst}}</option>
-                                {% endfor %}
-                            </select>
+                        <div class="row">
+                            <div class="item-option-select mb-3">
+                                <h6>Taille</h6>
+                                <select name="size" class="form-control" required>
+                                    <option value="" disabled selected class="text-center">Sélectionner</option>
+                                    {% for i in article.variation_set.sizes %}
+                                    <option value="{{i.variation_value | lower}}">{{i.variation_value | capfirst}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
-                {% if article.stock <= 0 %}
-                <span class="text-danger">
-                    <b>Il semblerait que cet article soit en rupture de stock pour le moment</b>
-                    <svg xmlns="http://www.w3.org/2000/svg" color="black" width="26" height="26" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                        <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
-                    </svg>
-                </span>
-                <hr>
-                {% else %}
-
-                {% if article.stock == 1 %}
-                <span class="text-danger">
-                    <b>Dépêchez-vous Il ne reste plus que {{article.stock}} article en stock.</b>
-                </span>
-                <hr>
-                {% elif article.stock <= 10 %}
-                <span class="text-danger">
-                    <b>Il ne reste plus que {{article.stock}} articles en stock.</b>
+                    {% endif %}
+                    {% if article.stock <= 0 %}
+                    <span class="text-danger">
+                        <b>Il semblerait que cet article soit en rupture de stock pour le moment</b>
+                        <svg xmlns="http://www.w3.org/2000/svg" color="black" width="26" height="26" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                        </svg>
+                    </span>
                     <hr>
-                </span>
-                {% elif article.stock > 10 %}
-                <span style="color:green;"><b>{{article.stock}} articles en stock</b></span>
-                <hr>
-                {% endif %}
-                
-                {% if in_cart%}
-                <div class="row">
-                    <div class="d-grid gab-2 col mb-2">
-                        <button type="submit" href="#" class="btn bg-warning">Ajouter au panier</button>
-                    </div>
-                    <div class="d-grid gab-2 col mb-2">
-                        <a href="{% url 'cart' %}" type="button" class="btn btn-light">
-                            <span class="mr-3">Voir le panier</span>
-                            <i class="fas fa-eye"></i>
-                        </a>
-                    </div>
-                </div>
-                {% else %}
+                    {% else %}
+    
+                    {% if article.stock == 1 %}
+                    <span class="text-danger">
+                        <b>Dépêchez-vous Il ne reste plus que {{article.stock}} article en stock.</b>
+                    </span>
+                    <hr>
+                    {% elif article.stock <= 10 %}
+                    <span class="text-danger">
+                        <b>Il ne reste plus que {{article.stock}} articles en stock.</b>
+                        <hr>
+                    </span>
+                    {% elif article.stock > 10 %}
+                    <span style="color:green;"><b>{{article.stock}} articles en stock</b></span>
+                    <hr>
+                    {% endif %}
+                    
+                    {% if in_cart %}
                     <div class="row">
                         <div class="d-grid gab-2 col mb-2">
                             <button type="submit" href="#" class="btn bg-warning">Ajouter au panier</button>
                         </div>
                         <div class="d-grid gab-2 col mb-2">
-                            <a href="#" class="btn" style="background-color:orange;">Acheter maintenant</a>
+                            <a href="{% url 'cart' %}" type="button" class="btn btn-light">
+                                <span class="mr-3">Voir le panier</span>
+                                <i class="fas fa-eye"></i>
+                            </a>
                         </div>
                     </div>
-                {% endif %}
-                {% endif %}
+                    {% else %}
+                        <div class="row">
+                            <div class="d-grid gab-2 col mb-2">
+                                <button type="submit" href="#" class="btn bg-warning">Ajouter au panier</button>
+                            </div>
+                            <div class="d-grid gab-2 col mb-2">
+                                <a href="#" class="btn" style="background-color:orange;">Acheter maintenant</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% endif %}
+                          </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-12 mt-5">
-                <hr>
-                <p class="text-center h5"><b>Description</b></p>
-                <hr>
-                <p class="text-justify">
-                    {{article.description}}
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque deserunt repellat obcaecati libero ullam sapiente eligendi consequuntur blanditiis, culpa, nobis ea. Repellendus soluta voluptates, distinctio quos fuga ratione tenetur qui?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime exercitationem quae ad natus possimus harum ab dolorem delectus ratione cumque repudiandae facilis molestiae unde perferendis, illo veniam dolorum. Est, eos.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam necessitatibus blanditiis fugit? Omnis, quibusdam maxime officiis mollitia ratione tenetur atque cupiditate facere, tempore odit sit impedit eaque rerum, voluptates iusto!
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi a velit, fugit labore neque eaque. Perferendis, nam exercitationem voluptatibus aliquam numquam reprehenderit quis debitis dolorem consequatur optio animi ipsam corrupti!
-                </p>
-                <hr>
+        </form>
+    </aside>
+
+    <aside class="mb-3">
+        <div class="card" style="max-width: 1140px;">
+            <div class="form-floating mb-1">
+                <textarea class="form-control" placeholder="Laissez un commentaire" id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2" class="text-center">Laissez un commentaire</label>
+            </div>
+            <div class="d-grid">
+                <a href="#" class="btn bg-success">soumettre</a>
             </div>
         </div>
-    </form>
-    <div class="form-floating mt-5 mb-1">
-        <textarea class="form-control" placeholder="Laissez un commentaire" id="floatingTextarea2" style="height: 100px"></textarea>
-        <label for="floatingTextarea2" class="text-center">Laissez un commentaire</label>
-    </div>
-    <a href="#" class="btn bg-success">soumettre</a>
+    </aside>
 </div>
 
 {% endblock %}
 
 
-<!-- {% if in_cart %}
-                <div class="row">
-                    <div class="d-grid gab-2 col mb-2">
-                        <a href="{% url 'cart' %}" type="button" class="btn btn-light">
-                            <span class="mr-3">Voir le panier</span>
-                            <i class="fas fa-eye"></i>
-                        </a>
+<!-- {% for cart_item in cart_items %}
+                    <div class="col-2 input-minus me-2 mt-1">
+                        <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}" class="btn" style="background-color:whitesmoke;" type="button" id="button-minus"><i class="fa fa-minus"></i></a>
                     </div>
-                </div>
-                {% else %}
-                    <div class="row">
-                        <div class="d-grid gab-2 col mb-2">
-                            <button type="submit" href="#" class="btn bg-warning">Ajouter au panier</button>
-                        </div>
-                        <div class="d-grid gab-2 col mb-2">
-                            <a href="#" class="btn" style="background-color:orange;">Acheter maintenant</a>
-                        </div>
+                      
+                    <div class="col-4 inline-block">
+                        <form action="">
+                          <input type="text" class="form-control text-center" value="{{ cart_item.quantity }}">
+                        </form>
                     </div>
-                {% endif %} -->
+                      Yoyo
+        {% endfor %} -->

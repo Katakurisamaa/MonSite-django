@@ -3,7 +3,7 @@
 {% block titre %}Panier{% endblock %}
 
 {% block content %}
-<section class="final section-content padding-y bg">
+<section class="final section-content padding-y bg mt-4">
   <div class="container">
     {% if not cart_items %}
 <h2 class="mt-2 text-center">
@@ -20,37 +20,39 @@
   </a>
 </center>
 {% else %}
-<div class="row mt-2">
-  <aside class="col-sm-7 position" style="background-color:white;">
-    <div class="row clearfix">
-      {% for cart_item in cart_items %}
-      <div class="col-sm-6 mb-2">
-        <figure class="figure">
+<div class="row mt-2 ">
+  <aside class="col-lg-6 position mb-4" style="background-color:white;">
+    <div class="card-body mb-4">
+      <div class="row clearfix">
+        {% for cart_item in cart_items %}
+        <div class="col-sm-6 mt-2">
           <a href="{{cart_item.product.get_url}}">
-            <img src="{{ cart_item.product.images.url }}" class="figure-img img-fluid rounded" alt="...">
+            <img src="{{ cart_item.product.images.url }}" class="figure-img img-fluid rounded" alt="{{cart_item.product.name}}">
           </a>
-          <figcaption class="figure-caption"></figcaption>
-        </figure>
-        <!-- <img w-100 src="{{ cart_item.product.images.url }}" class="img-thumbnail" alt=""> -->
-      </div>
-      <div class="col-sm-6 mb-2">
-        <p>
-          <span class="text-muted">
-            <span>Article :</span> {{ cart_item.product.product_name }}
-            <br>
-            {% if cart_item.variations.all %}
-              {% for item in cart_item.variations.all %}
-                {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
-              {% endfor %}
-            {% endif %}
-          </span>
-          <span class="text-muted">Prix de l'article:</span>
-          <span class="text-muted">{{ cart_item.product.price }}€</span>
-        </p>
+          <!-- <figure class="">
 
-        <p>
-          <span class="text-muted">Quantité</span>
-            <div class="row ">
+              <img src="{{ cart_item.product.images.url }}" class="figure-img img-fluid rounded" alt="{{cart_item.product.name}}">
+            <figcaption class="figure-caption"></figcaption>
+          </figure> -->
+        </div>
+        <div class="col-sm-6 mb-2">
+             {{ cart_item.product.product_name }}.
+            <br>
+            <span class="text-muted">
+              <b>
+                {% if cart_item.variations.all %}
+                  {% for item in cart_item.variations.all %}
+                    {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                  {% endfor %}
+                {% endif %}
+              </b>
+            </span>
+            <span class="text-muted">Prix de l'article :</span>
+            <span class="text-muted">{{ cart_item.product.price }}€</span>
+            <br>
+            <span class="mb-2">À payer :</span>
+            <span class="">{{ cart_item.sub_total}}€</span>
+            <div class="row mt-2">
 
               <div class="col-2 input-minus me-2 mt-1">
                 <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}" class="btn" style="background-color:whitesmoke;" type="button" id="button-minus"><i class="fa fa-minus"></i></a>
@@ -72,48 +74,50 @@
                 </form>
               </div>
 
+              <div class="d-grid text-center mt-2">
+                <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" onclick="return confirm('Êtes-vous sûre de vouloir supprimer cet article?')" class="btn btn-danger">Supprimer</a>
+              </div>
             </div>
-        </p>
-
-        <p>
-          <span class="text-muted">Prix total:</span>
-          <span class="text-muted">{{ cart_item.sub_total}}€</span>
-        </p>
-
-        <p class="d-grid">
-          <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" onclick="return confirm('Êtes-vous sûre de vouloir supprimer cet article?')" class="btn btn-danger">Supprimer</a>
-        </p>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
   </aside>
 
-  <aside class="col-sm-4 finalisation" style="background-color:white;">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">PRIX TOTAL</th>
-          <th scope="col">LIVRAISON</th>
-          <th scope="col">TOTAUX</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="text-center">{{ total }}€</td>
-          <td class="text-center">{{ tax }}€</td>
-          <td class="text-center">{{ grand_total }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="text-center mt-1">
-      <img src="{% static 'payments.png' %}" alt="">
-    </div>
-    <div class="d-grid text-center mt-5">
-      <a href="{% url 'checkout' %}" class="btn btn-primary btn">Commander</a>
-    </div>
-    <div class="d-grid  text-center mt-2 mb-2">
-      <a href="{% url 'boutique' %}" class="btn bg-light btn">Poursuivre mes achats</a>
-    </div>
+  <aside class="col-lg-4" style="float: end;">
+
+    <div class="card">
+      <div class="card-body">
+        <dl class="dlist-align">
+          <dt>Prix total:</dt>
+          <dd class="text-right">€ {{total}}</dd>
+        </dl>
+        <dl class="dlist-align">
+          <dt>Tax:</dt>
+          <dd class="text-right"> € {{tax}}</dd>
+        </dl>
+        <dl class="dlist-align">
+          <dt>Total + tax:</dt>
+          <dd class="text-right text-dark b"><strong>€ {{grand_total}}</strong></dd>
+        </dl>
+        <hr>
+        <p class="text-center mb-3">
+          <img src="{% static 'payments.png' %}" height="26">
+        </p>
+
+        <div class="d-grid text-center mt-4">
+          <a href="{% url 'checkout' %}" class="btn btn-primary btn-sm">Commander</a>
+        </div>
+  
+        <div class="d-grid text-center mt-2">
+          <a href="{% url 'boutique' %}" class="btn btn-sm" style="background-color:rgb(204, 173, 230);">Poursuivre mes achats</a>
+        </div>
+
+      </div> <!-- card-body.// -->
+
+    </div> <!-- card.// -->
+    <!-- <div class="alert alert-danger" role="alert">
+      <b>Please Note: </b>This is a demo website. Do not try to make real payments.
+    </div> -->
   </aside>
 </div>
 {% endif %}

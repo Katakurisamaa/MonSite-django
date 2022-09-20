@@ -3,107 +3,103 @@
 {% block titre %}Panier{% endblock %}
 
 {% block content %}
-<section class="final section-content padding-y bg">
+<section class="final section-content padding-y bg mt-4">
   <div class="container">
-<div class="row mt-2">
-  <aside class="col-sm-7 position" style="background-color:white;">
-    <div class="row clearfix">
-        <h4>Adresse de facturation</h4>
-        <form method="POST" action="">
-          {% csrf_token %}
-            <div class="form-row">
-                <div class="col form-group">
-                    <label for="">Prénom</label>
-                    <input type="text" name="first_name" class="form-control" required>
+    <div class="row mt-2">
+      <aside class="col-sm-5 position mb-4">
+        <div class="card row">
+            <h4 class="text-center" style="color:#831B74;">Adresse de facturation</h4>
+            <form method="POST" action="{% url 'place_order' %}">
+              {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm form-group">
+                        <label for="">Prénom</label>
+                        <input type="text" name="first_name" class="form-control" required>
+                    </div>
+                    <div class="col-sm form-group">
+                        <label for="">Nom</label>
+                        <input type="text" name="last_name" class="form-control" required>
+                    </div>
                 </div>
-                <div class="col form-group">
-                    <label for="">Nom</label>
-                    <input type="text" name="last_name" class="form-control" required>
+    
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label for="">Email</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="">Numéro de téléphone</label>
+                        <input type="text" name="phone" class="form-control" required>
+                    </div>
+                    <div class="col-sm form-group">
+                        <label for="">Adresse ligne 1</label>
+                        <input type="text" name="address_line_1" class="form-control" required>
+                    </div>
+                    <div class="col-sm form-group">
+                        <label for="">Adresse ligne 2</label>
+                        <input type="text" name="address_line_2" class="form-control">
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col form-group">
-                    <label for="">Email</label>
-                    <input type="email" name="email" class="form-control" required>
+    
+                <div class="row">
+                    <div class="col-sm form-group">
+                        <label for="">Ville</label>
+                        <input type="text" name="city" class="form-control" required>
+                    </div>
+                    <div class="col-sm form-group">
+                        <label for="">Région/Province</label>
+                        <input type="text" name="state" class="form-control" required>
+                    </div>
+                    <div class="col-sm form-group">
+                        <label for="">Pays</label>
+                        <input type="text" name="country" class="form-control" required>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="" class="">Note de commande</label>
+                        <textarea name="order_note" rows="2" class="form-control"></textarea>
+                    </div>
                 </div>
-                <div class="col form-group">
-                    <label for="">Numéro de téléphone</label>
-                    <input type="text" name="phone" class="form-control" required>
-                </div>
-                <div class="col form-group">
-                    <label for="">Adresse</label>
-                    <input type="text" name="address" class="form-control" required>
-                </div>
-                <div class="col-2 form-group">
-                    <label for="">Code postal</label>
-                    <input type="text" name="phone" class="form-control" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col form-group">
-                    <label for="">Ville</label>
-                    <input type="text" name="city" class="form-control" required>
-                </div>
-                <div class="col form-group">
-                    <label for="">Région</label>
-                    <input type="text" name="state" class="form-control">
-                </div>
-                <div class="col form-group">
-                    <label for="">Pays</label>
-                    <input type="text" name="country" class="form-control" required>
-                </div>
-                <div class="col form-group">
-                    <label for="" class="">Note de commande</label>
-                    <textarea name="order_note" rows="2" class="form-control float-end"></textarea>
-                </div>
-            </div>
-        
-    </div>
-  </aside>
-
-  <aside class="col-sm-4 finalisation">
-    <div class="row clearfix">
-        <h4 class="mb-4">Articles</h4>
-        {% for cart_item in cart_items %}
-        <div class="col-sm-6">
-          <figure class="figure">
-              <img src="{{ cart_item.product.images.url }}" class="figure-img img-fluid rounded" alt="{{cart_item.product.name}}">
-            <figcaption class="figure-caption"></figcaption>
-          </figure>
+            
         </div>
-        <div class="col-sm-6 mb-2">
-          <p>
-             {{ cart_item.product.product_name }}.
-            <br>
-            <span class="text-muted">
-              {% if cart_item.variations.all %}
-                {% for item in cart_item.variations.all %}
-                  {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
-                {% endfor %}
-              {% endif %}
-            </span>
-            <span class="text-muted">Prix de l'article:</span>
-            <span class="text-muted">{{ cart_item.product.price }}€</span>
-            <span class="text-muted">Quantité: {{ cart_item.quantity }}</span> <br>
-            <span class="">Prix total:</span>
-            <span class="">{{ cart_item.sub_total}}€</span>
-          </p>
+      </aside>
+      <!-- style="background-color: white;" -->
+      <aside class="col-sm-6 finalisation mb-4" style="background-color: white;">
+        <div class="row">
+          <h4 class="mb-4 text-center" style="color:#831B74;">Articles</h4>
+          {% for cart_item in cart_items %}
+          <div class="col-sm-6">
+            <figure class="">
+                <img src="{{ cart_item.product.images.url }}" class="figure-img img-fluid rounded" alt="{{cart_item.product.name}}">
+              <!-- <figcaption class="figure-caption"></figcaption> -->
+            </figure>
+          </div>
+          <div class="col-sm-6 mb-2">
+               {{ cart_item.product.product_name }}.
+              <br>
+              <span class="text-muted">
+                {% if cart_item.variations.all %}
+                  {% for item in cart_item.variations.all %}
+                    {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
+                  {% endfor %}
+                {% endif %}
+              </span>
+              <span class="text-muted">Prix de l'article :</span>
+              <span class="text-muted">{{ cart_item.product.price }}€ x <b>{{ cart_item.quantity }}</b> </span>
+              <br>
+              <span class="">À payer :</span>
+              <span class="">{{ cart_item.sub_total}}€</span>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
+  
+  
+      <div class="d-grid text-center mt-5">
+        <!-- <a href="#" class="btn btn-primary btn">Passer la commande</a> -->
+        <button type="submit" name="submit" class="btn btn-primary btn-block">Passer à la caisse</button>
       </div>
-
-
-    <div class="d-grid text-center mt-5">
-      <!-- <a href="#" class="btn btn-primary btn">Passer la commande</a> -->
-      <button type="submit" name="submit" class="btn btn-primary btn-block">Passer la commande</button>
+      </form>
+      </aside>
     </div>
-    <div class="d-grid  text-center mt-2 mb-2">
-      <a href="{% url 'boutique' %}" class="btn bg-light btn">Poursuivre mes achats</a>
-    </div>
-  </form>
-  </aside>
-</div>
+  </div>
 </section>
 {% endblock %}

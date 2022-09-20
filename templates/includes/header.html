@@ -1,19 +1,21 @@
 {% load static %}
 <section class="">
-  <div class="container-fluid" style="background-color:blue;">
+  <!-- class="dropdown-toggle text-reset btn" data-bs-toggle="dropdown" aria-expanded="false" -->
+  <div class="container-fluid" style="background-color:#831B74;">
     <div class="row">
-      <div class="dropdown-end col-6">
-        <a href="#" class="dropdown-toggle text-reset" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="dropdown col-6">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
           <span style="color:white;">Langue</span> <span style="color:white;">(FR)</span>
-        </a>
-        <ul class="dropdown-menu">
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li><a class="dropdown-item" href="#">FR</a></li>
           <li><a class="dropdown-item" href="#">ENG</a></li>
           <li><a class="dropdown-item" href="#">TK</a></li>
         </ul>
       </div>
-      <div class="dropdown-end col-6">
-        <a href="#" class="dropdown-toggle text-reset" data-bs-toggle="dropdown" aria-expanded="false">
+
+      <div class="dropdown col-6">
+        <a href="#" class="dropdown-toggle text-reset btn" data-bs-toggle="dropdown" aria-expanded="false">
           <span style="color:white;">Devise</span> <span style="color:white;">(EUR)</span>
         </a>
         <ul class="dropdown-menu">
@@ -26,7 +28,7 @@
   </div>
 </section>
 
-<section class="sticky-top">
+<section class="sticky-top-sm">
   <nav class="navbar navbar-expand-lg bg-light">
       <div class="container">
         <div>
@@ -107,8 +109,8 @@
 
     </div>
   </nav>
-
-  <div class="d-flex container-fluid flex-wrap" style="background-color:rgb(204, 173, 230);">
+  <!--  #831B74 -->
+  <div class="d-flex container-fluid flex-wrap" style="background-color:rgb(204, 173, 230);"> 
     <ul class="nav nav-tabs">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'accueil' %}">ACCUEIL</a>
@@ -118,19 +120,33 @@
             aria-controls="offcanvasRight">
             CATÉGORIES
             </a>
-            <div class="offcanvas offcanvas-end category" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                <div class="offcanvas-header" style="background-color:white;">
+            <div class="offcanvas offcanvas-end category" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="background-color: transparent; color: #831B74;">
+                <div class="offcanvas-header" style="background-color: whitesmoke;">
                     <h5 class="offcanvas-title text-center" id="offcanvasRightLabel">CATÉGORIES</h5>
                     <button style="background-color:black;" type="button" class="btn-sm-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body" style="background-color:white;">
+                <div class="offcanvas-body" style="background-color: transparent;">
                     <div class="row">
-                        <div class="col-12 text-center pb-2">
-                          <a href="{% url 'boutique' %}" class="text-reset">VOIR TOUS LES ARTICLES</a>
+                        <div class="d-grid col-12 text-center mb-2 pb-2 pt-2" style="background-color: white;">
+                          <a href="{% url 'boutique' %}" class="btn text-reset">VOIR TOUS LES ARTICLES</a>
                         </div>
                         {% for category in links %}
-                        <div class="col-12 text-center pb-2">
-                          <a href="{{ category.get_url }}" class="text-reset">{{ category.category_name }}</a>
+                        <div class="card mb-3">
+                          <div class="row g-0">
+                            <div class="col-md-4">
+                              <figure class="figure">
+                                <a href="{{ category.get_url }}" class="">
+                                  <img w-100 src="{{ category.cat_image.url }}" class="figure-img img-fluid rounded mt-4" alt="...">
+                                </a>
+                                <figcaption class="figure-caption"></figcaption>
+                              </figure>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="card-body">
+                                <h4 class="card-title mt-sm-4 text-center"><a href="{{ category.get_url }}" class="btn text-reset">{{ category.category_name }}</a></h4>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                         {% endfor %}
                     </div>

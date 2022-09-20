@@ -38,3 +38,35 @@ body {
 .marge{
     margin-top: 100px;
 }
+
+.adresse{
+    margin-bottom: 2px;
+    background-color: white;
+}
+
+
+/* <table width="100">
+<tr>
+  <td>
+    <img src="{% static 'payments.png' %}" alt="">
+    <!-- <div class="text-center mt-1">
+      <img src="{% static 'payments.png' %}" alt="">
+    </div> -->
+  </td>
+</tr>
+
+<tr>
+  <td class="d-grid">
+    <a href="{% url 'checkout' %}" class="btn btn-primary btn">Commander</a>
+    <!-- <div class="d-grid text-center mt-5">
+      <a href="{% url 'checkout' %}" class="btn btn-primary btn">Commander</a>
+    </div> -->
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <a href="{% url 'boutique' %}" class="btn bg-light btn">Poursuivre mes achats</a>
+  </td>
+</tr>
+</table> */

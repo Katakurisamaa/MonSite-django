@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section>
+    <div class="container" style="margin-top: 50px;">
+        <center><i class="fas fa-check-circle" style="font-size: 72px;margin-bottom: 20px;color: #28A745;"></i></center>
+        <h2 class="text-center">Paiement réussi</h2>
+        <br>
+        <div class="text-center">
+            <a href="{% url 'boutique' %}" class="btn btn-success">Continuez vos achats</a>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row" style="border:1px solid red;">
+            <div class="col-sm-6">
+                <img src="{% static '/images/logo.jpeg' %}" alt="Invoice logo" style="max-height: 70px;">
+            </div>
+            <div class="col-sm-6">
+                <span class="float-end">
+                    <ul style="list-style:none;">
+                        <li><strong>Facturé à</strong></li>
+                        <li>Benjamin Minko</li>
+                        <li>6041, Rue des capucins 49</li>
+                        <li>Gosselies, Charleroi</li>
+                        <li>Belgique</li>
+                    </ul>
+                </span>
+            </div>
+
+            <div class="col-sm-6">
+                <span class="">
+                    <ul style="list-style:none;">
+                        <li><strong>Commande</strong> #20220919202</li>
+                        <li><strong>Transaction ID:</strong> 0257613894385162S</li>
+                        <li>6041, Rue des capucins 49</li>
+                        <li><strong>Date de commande:</strong> 19 septembre 2022 à 00:12</li>
+                        <li><strong>Statut</strong> Terminé</li>
+                    </ul>
+                </span>
+            </div>
+
+            <div class="row sm">
+                <div class="col" style="border:1px solid blue ;">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="per70 text-center">Article.s</th>
+                                <th class="per5 text-center">Qté</th>
+                                <th class="per25 text-center">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for item in ordered_products %}
+                            <tr>
+                                <td>{{item.product.product_name}}
+                                  <p class="text-muted small">
+                                              {% if item.variations.all %}
+                                                  {% for i in item.variations.all %}
+                                                      {{ i.variation_category | capfirst }} : {{ i.variation_value | capfirst }} <br>
+                                                  {% endfor %}
+                                              {% endif %}
+                                          </p>
+                                </td>
+                                <td class="text-center">{{item.quantity}}</td>
+                                <td class="text-center">€{{item.product_price}} EUR</td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="2" class="text-right">Prix total</th>
+                                <th class="text-center">€{{subtotal}} EUR</th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" class="text-right">Taxe</th>
+                                <th class="text-center">€{{order.tax}} EUR</th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="2" class="text-right">Total payer:</th>
+                                <th class="text-center">€{{order.order_total}} EUR</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
