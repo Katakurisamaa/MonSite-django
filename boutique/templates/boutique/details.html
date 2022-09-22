@@ -15,18 +15,28 @@
                             <figcaption>{{article.price}}€</figcaption>
                         </figure> -->
                         <img src="{{ article.images.url }}" class="img-fluid rounded-start" alt="...">
-                        <p class="card-text"><small class="text-muted">Dernière mise à jour il y a 3 mois.</small></p>
-                        <p class="card-text"><small class="text-muted">.</small></p>
+                        <p class="card-text"><small class="text-muted">Dernière mise à jour le {{article.modified_date}}</small></p>
+                        <!-- <p class="card-text"><small class="text-muted">.</small></p> -->
                       </div>
                       <div class="col-md-8">
                         <div class="card-body">
                           <h5 class="card-title">{{ article.product_name }}.</h5>
+                          <div class="rating-star">
+                            <span>
+                                <i class="fa{% if article.averageReview < 0.5 %}-regular fa-star {% elif article.averageReview >= 0.5 and article.averageReview < 1 %}-solid fa-star-half-o {% elif article.averageReview >= 1 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                <i class="fa{% if article.averageReview < 1.5 %}-regular fa-star {% elif article.averageReview >= 1.5 and article.averageReview < 2 %}-solid fa-star-half-o {% elif article.averageReview >= 2 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                <i class="fa{% if article.averageReview < 2.5 %}-regular fa-star {% elif article.averageReview >= 2.5 and article.averageReview < 3 %}-solid fa-star-half-o {% elif article.averageReview >= 3 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                <i class="fa{% if article.averageReview < 3.5 %}-regular fa-star {% elif article.averageReview >= 3.5 and article.averageReview < 4 %}-solid fa-star-half-o {% elif article.averageReview >= 4 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                <i class="fa{% if article.averageReview < 4.5 %}-regular fa-star {% elif article.averageReview >= 4.5 and article.averageReview < 5 %}-solid fa-star-half-o {% elif article.averageReview >= 5 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                {{article.countReview}} avis
+                            </span>
+                          </div>
+                          
+                          <p class="card-text h3">{{article.price}}€</p>
+                          <p><strike class="text-muted">300€</strike></p>
                           <p class="text-justify">
                             {{article.description}}
                           </p>
-                          <p class="card-text h3">{{article.price}}€</p>
-                          <p><strike class="text-muted">300€</strike></p>
-                          <p>
                             {% if article.category.category_name == "Chaussure" or article.category.category_name == "Perruque" or article.category.category_name == "Mèche"%}
                         <div class="row">
                             <div class="item-option-select mt-2">
@@ -41,12 +51,12 @@
                             
                         </div>
                         <div class="row">
-                            <div class="item-option-select mb-3">
+                            <div class="item-option-select mb-3 mt-2">
                                 <h6>Taille</h6>
                                 <select name="size" class="form-control" required>
                                     <option value="" disabled selected class="text-center">Sélectionner</option>
                                     {% for i in article.variation_set.sizes %}
-                                    <option value="{{i.variation_value | lower}}">{{i.variation_value | capfirst}}</option>
+                                        <option value="{{i.variation_value | lower}}">{{i.variation_value | capfirst}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -92,11 +102,16 @@
                     </div>
                     {% else %}
                         <div class="row">
-                            <div class="d-grid gab-2 col mb-2">
-                                <button type="submit" href="#" class="btn bg-warning">Ajouter au panier</button>
+                            <div class="col-sm-6 mb-2">
+                                <div class="d-grid">
+                                    <button type="submit" href="#" class="btn bg-warning">Ajouter au panier</button>
+                                </div>
                             </div>
-                            <div class="d-grid gab-2 col mb-2">
-                                <a href="#" class="btn" style="background-color:orange;">Acheter maintenant</a>
+                            <div class="col-sm-6 mb-2">
+                                <div class=" d-grid">
+                                    <a class="btn" style="background-color:orange;">Acheter maintenant</a>
+                                </div>
+                                
                             </div>
                         </div>
                     {% endif %}
@@ -110,13 +125,89 @@
     </aside>
 
     <aside class="mb-3">
-        <div class="card" style="max-width: 1140px;">
-            <div class="form-floating mb-1">
-                <textarea class="form-control" placeholder="Laissez un commentaire" id="floatingTextarea2" style="height: 100px"></textarea>
-                <label for="floatingTextarea2" class="text-center">Laissez un commentaire</label>
-            </div>
-            <div class="d-grid">
-                <a href="#" class="btn bg-success">soumettre</a>
+
+        <div class="row">
+            <div class="col-md-9">
+                
+                <form action="{% url 'submit_review' article.id %}" method="POST">
+                    {% csrf_token %}
+                    <h5>Donner votre avis</h5>
+                    
+                    <div>
+                        <!-- rating -->
+                        <label>Combien donnez-vous à cet article?</label>
+                        <br>
+                        <div class="rate">
+                            <input type="radio" name="rating" id="rating10" value="5" required><label for="rating10" title="5"></label>
+                            <input type="radio" name="rating" id="rating9" value="4.5" required><label for="rating9" title="4.5" class="half"></label>
+                            <input type="radio" name="rating" id="rating8" value="4" required><label for="rating8" title="4"></label>
+                            <input type="radio" name="rating" id="rating7" value="3.5" required><label for="rating7" title="3.5" class="half"></label>
+                            <input type="radio" name="rating" id="rating6" value="3" required><label for="rating6" title="3"></label>
+                            <input type="radio" name="rating" id="rating5" value="2.5" required><label for="rating5" title="2.5" class="half"></label>
+                            <input type="radio" name="rating" id="rating4" value="2" required><label for="rating4" title="2"></label>
+                            <input type="radio" name="rating" id="rating3" value="1.5" required><label for="rating3" title="1.5" class="half"></label>
+                            <input type="radio" name="rating" id="rating2" value="1" required><label for="rating2" title="1"></label>
+                            <input type="radio" name="rating" id="rating1" value="0.5" required><label for="rating1" title="0.5" class="half"></label>
+                        </div>
+                        <br>
+                        Titre du commentaire
+                        <input type="text" class="form-control" name="subject">
+                        <br>
+                        Soumettre un avis:
+                        <textarea name="review" rows="5" class="form-control"></textarea>
+                        <br>
+                        {% if user.is_authenticated %}
+                            {% if orderproduct %}
+                                <input type="submit" value="Soumettre l'avis" class="btn btn-primary">
+                            {% else %}
+                                <p>Vous devez acheter cet article pour soumettre un avis.</p>
+                            {% endif %}
+                        {% else %}
+                            <p><span>Vous devez être connecté pour soumettre un avis.</span> <a href="{% url 'login' %}">Se connecter maintenant</a></p>
+                        {% endif %}
+                    </div>
+                </form>
+                <br>
+                <header class="section-heading">
+                    <h3>Avis des clients</h3>
+                    <span class="rating-star">
+                        {{article.countReview}} avis
+                        <i class="fa{% if article.averageReview < 0.5 %}-regular fa-star {% elif article.averageReview >= 0.5 and article.averageReview < 1 %}-solid fa-star-half-o {% elif article.averageReview >= 1 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                        <i class="fa{% if article.averageReview < 1.5 %}-regular fa-star {% elif article.averageReview >= 1.5 and article.averageReview < 2 %}-solid fa-star-half-o {% elif article.averageReview >= 2 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                        <i class="fa{% if article.averageReview < 2.5 %}-regular fa-star {% elif article.averageReview >= 2.5 and article.averageReview < 3 %}-solid fa-star-half-o {% elif article.averageReview >= 3 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                        <i class="fa{% if article.averageReview < 3.5 %}-regular fa-star {% elif article.averageReview >= 3.5 and article.averageReview < 4 %}-solid fa-star-half-o {% elif article.averageReview >= 4 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                        <i class="fa{% if article.averageReview < 4.5 %}-regular fa-star {% elif article.averageReview >= 4.5 and article.averageReview < 5 %}-solid fa-star-half-o {% elif article.averageReview >= 5 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                        soit une note de {{article.averageReview}}/5
+                    </span>
+                </header>
+            {% for review in reviews %}
+                <article class="box mb-3 mt-3" style="background-color: white;">
+                    <div class="icontext w-100">
+                        <!-- <img src="{% static '/images/woman.jpg' %}" alt="photoclient" class="img-xs icon rounded-circle" style="max-height: 40px;"> -->
+                        <!-- <span class="mb-1">{{ review.user.full_name}}</span> -->
+                        <div class="text">
+                            <span class="date text-muted float-md-end">{{review.updated_at}}</span>
+                            <h6 class="">{{ review.user.full_name}} <small style="color: red;">Achat vérifié</small></h6>
+                            <div class="rating-star">
+                                <span>
+                                    {{review.rating}}
+                                    <i class="fa{% if review.rating == 0.5 %}-solid fa-star-half-o{% elif review.rating < 1 %}-regular fa-star {% elif review.rating >= 1 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa{% if review.rating == 1.5 %}-solid fa-star-half-o{% elif review.rating < 2 %}-regular fa-star {% elif review.rating >= 2 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa{% if review.rating == 2.5 %}-solid fa-star-half-o{% elif review.rating < 3 %}-regular fa-star {% elif review.rating >= 3 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa{% if review.rating == 3.5 %}-solid fa-star-half-o{% elif review.rating < 4 %}-regular fa-star {% elif review.rating >= 4 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa{% if review.rating == 4.5 %}-solid fa-star-half-o{% elif review.rating < 5 %}-regular fa-star {% elif review.rating >= 5 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <h6>{{review.subject}}</h6>
+                        <p class="text-justify">
+                            {{review.review}}
+                        </p>
+                    </div>
+                </article>
+            {% endfor %}
             </div>
         </div>
     </aside>
