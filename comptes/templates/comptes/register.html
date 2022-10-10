@@ -13,7 +13,7 @@
             <form action="{% url 'register' %}" method="POST">
                 {% csrf_token %}
     
-                    <div class="form-row">
+                    <div class="row">
                         <div class="col form-group mb-2">
                             <label class="">Prénom</label>
                             {{form.first_name}}
@@ -25,7 +25,7 @@
                     </div> <!-- form-row end.// -->
     
     
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-6 mb-2">
                           <label class="">Email</label> 
                             {{form.email}}
@@ -35,7 +35,7 @@
                           {{form.phone_number}}
                         </div> <!-- form-group end.// -->
                     </div> <!-- form-row.// -->
-                    <div class="form-row">
+                    <div class="row">
                         <div class="form-group col-md-6 mb-2">
                             <label class="">Mot de passe</label>
                             {{form.password}}

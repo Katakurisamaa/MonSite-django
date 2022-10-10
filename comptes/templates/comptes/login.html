@@ -19,6 +19,7 @@ Déjà authentifié? <a href="{% url 'login' %}">Se connecter</a>
           <div class="card-body">
           <h4 class="card-title mb-4"><span style="color:#821B74">Connexion</span></h4>
           {% include 'includes/alerts.html' %}
+          
           <form action="{% url 'login' %}" method="POST">
             {% csrf_token %}
               <div class="form-group mb-4">

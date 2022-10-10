@@ -1,0 +1,25 @@
+<aside class="col-md-3 mb-4">
+    <!--   SIDEBAR   -->
+    <ul class="list-group mb-2">
+        <a class="list-group-item {% if '/comptes/' == request.path %}active{% endif %}" href="{% url 'dashboard' %}#dashboard">
+            Tableau de bord
+        </a>
+        <a class="list-group-item {% if '/comptes/my_orders/' == request.path %}active{% endif %}" href="{% url 'my_orders' %}#Myorders">
+            Mes commandes
+        </a>
+        <a class="list-group-item {% if '/comptes/edit_profile/' == request.path %}active{% endif %}"
+            href="{% url 'edit_profile' %}#editprofil">
+            Modifier le profil 
+        </a>
+        <a class="list-group-item {% if '/comptes/change_password/' == request.path %}active{% endif %}"
+            href="{% url 'change_password' %}#Changepassword">
+            Changer le mot de passe 
+        </a>
+    </ul>
+    <div class="d-grid">
+        <a class="btn btn-light btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i>
+            <span class="text"> Déconnexion</span> 
+       </a>
+    </div>
+    <!--   SIDEBAR .//END   -->
+</aside>

@@ -4,52 +4,40 @@
 {% block content %}
 
 
-<section class="facture" style="margin-top:50px;">
-    <div class="container">
-        <center><i class="fas fa-check-circle" style="font-size: 72px;margin-bottom: 20px;color: #28A745;"></i></center>
-        <h2 class="text-center">Paiement réussi</h2>
-        <br>
-        <div class="text-center">
-            <a href="{% url 'boutique' %}" class="btn btn-success">Continuez vos achats</a>
-        </div>
-    </div>
+<section class="mb-4" style="margin-top:50px;">
 
     <div class="container mt-4">
-        <div class="row facture-info">
+        <div class="row" style="border:1px solid #831B74;">
             <div class="col-lg-12">
-                <center>
-                    <img src="{% static '/images/log.jpeg' %}" alt="Logo" style="max-height: 70px;">
-                    <p class="compagny">Soso Relooking</p>
-                </center>
+                <center><img src="{% static '/images/logo.jpeg' %}" alt="Invoice logo" style="max-height: 70px;"></center>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <span class="">
-                    <ul class="liste-facture">
+                    <ul style="list-style:none;">
                         <li><strong>Facturé à</strong></li>
                         <li>{{order.full_name}}</li>
                         <li>{{order.full_address}}</li>
                         <li>{{order.city}}, {{order.state}}</li>
                         <li>{{order.country}}</li>
                         {% if order.order_note %}
-						<b>Note de commande: </b> {{order.order_note}}
+						<b>Note de commande : </b> {{order.order_note}}
 						{% endif %}
                     </ul>
                 </span>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <span class="float-end">
-                    <ul class="liste-facture">
-                        <li><strong>Commande</strong> #{{order_number}}</li>
-                        <li><strong>Transaction ID :</strong> {{transID}}</li>
-                        <li>6041, Rue des capucins 49</li>
-                        <li><strong>Date de commande : </strong>{{order.created_at}}</li>
+                    <ul style="list-style:none;">
+                        <li><strong>Commande</strong> #{{order.order_number}}</li>
+                        <li><strong>Transaction ID :</strong> {{order.payment.payment_id}}</li>
+                        <li><strong>Date de commande :</strong> {{order.created_at}}</li>
                         <li><strong>Statut :</strong>
-                            {% if payment.status == "COMPLETED" %}
+                            {% if order.payment.status == "COMPLETED" %}
                                 TERMINÉ
-                            {% elif payment.status == "ACCEPTED" %}
+                            {% elif order.payment.status == "ACCEPTED" %}
                                 ACCEPTÉ
-                            {% elif payment.status == "CANCELLED" %}
+                            {% elif order.payment.status == "CANCELLED" %}
                                 REFUSÉ
                             {% endif %}
                         </li>
@@ -57,7 +45,7 @@
                 </span>
             </div>
 
-            <div class="row sm" style="overflow-x:auto;">
+            <div class="row sm">
                 <div class="col">
                     <table class="table table-bordered">
                         <thead>
@@ -68,7 +56,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                          {% for item in ordered_products %}
+                          {% for item in order_detail %}
                             <tr>
                                 <td>{{item.product.product_name}}
                                   <p class="text-muted small">

@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from boutique.forms import ReviewForm
 from category.models import Category
 from cart.models import Cart, CartItem
-from .models import Product, ReviewRating
+from .models import Product, ProductGallery, ReviewRating
 from cart.views import _cart_id
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
@@ -18,10 +18,9 @@ from django.db.models import Q
 #     context={'articles': articles}
 #     return render(request, 'boutique/article.html', context)
 
-def boutique_view(request, category_slug=None):
+def boutique_view(request, category_slug=None, reviews=None):
     categories = None
     articles = None
-
     if category_slug != None:
         categories = get_object_or_404(Category, slug=category_slug)
         articles = Product.objects.filter(category=categories, is_available=True)
@@ -36,9 +35,12 @@ def boutique_view(request, category_slug=None):
         page_article = paginator.get_page(page)
         article_count = articles.count()
 
+    for article in articles.order_by('-created_date'):
+        reviews = ReviewRating.objects.filter(product_id=article.id, status=True)
     context = {
         'articles': page_article,
         'article_count': article_count,
+        'reviews':reviews,
     }
     return render(request, 'boutique/article.html', context)
 
@@ -58,11 +60,16 @@ def details_view(request, category_slug, slug):
 
     # Get the reviews
     reviews = ReviewRating.objects.filter(product_id=article.id, status=True)
+
+    # Get the product gallery
+    product_gallery = ProductGallery.objects.filter(product_id=article.id)
+
     context = {
         'article':article,
         'orderproduct': orderproduct,
         'in_cart': in_cart,
         'reviews': reviews,
+        'product_gallery':product_gallery,
         }
     return render(request, 'boutique/details.html', context)
 
@@ -90,6 +97,7 @@ def ajouter_view(request, total=0, quantity=0, cart_items=None, cart=None):
             cart_items = CartItem.objects.filter(cart=cart, is_active=True)
         for cart_item in cart_items:
             total += (cart_item.product.price * cart_item.quantity)
+            
             quantity += cart_item.quantity
         tax = (2 * total)/100
         grand_total = total + tax

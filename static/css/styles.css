@@ -1,72 +1,187 @@
 body {
-    /* background:linear-gradient(#8a307f, #79a7d3, #6883bc); */
-    background: whitesmoke;
+  font-family:'Roboto', sans-serif;
+  background: #F4F7F6;
+  margin: 0px;
+  padding: 0px;
+}
+input {
+  margin-bottom: 2px;
+  }
+
+@keyframes fade {
+  from{
+    color: black;
+  }
+  to {
+    font-weight: bold;
+    color: #831B74;
+  }
+}
+ 
+#banner{
+  font-family: 'Passions Conflict', cursive, sans-serif;
+  text-align: center;
+  margin-top: 30px;
+  overflow: hidden;
+}
+/* Classe */
+.banner-size{
+  width: 100%;
+  height: 300px;
+  background: rgba(203,151,49,0.5);
+  border: 0px black solid;
+  border-radius: 15px;
+}
+.banner{
+  font-size: 6.5em;
+  text-align: center;
+  animation-name : fade ;
+  animation-delay : 0s ; 
+  animation-duration : 1s ;
+  animation-iteration-count : infinite ;
+}
+
+.article-accueil{
+  margin-top: 100px;
+}
+.tof{
+	text-shadow: 0 3px 6px rgba(0,0,0,0.16);
+}
+.tof img {
+	width: 100%;
+  height: 260px;
+  padding-bottom: 15px;
+	border: 0px black solid;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.boutique-texte{
+  font-family: 'Passions Conflict', cursive, sans-serif;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.5em;
+}
+
+/* Offcantas image */
+.containeur {
+  position: relative;
+  max-width: 800px; /* Maximum width */
+  margin: 0 auto; /* Center it */
+}
+
+.containeur .content {
+  position: absolute; /* Position the background text */
+  bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  font-weight: bold;
+  width: 100%; /* Full width */
+  padding: 5px; /* Some padding */
+}
+
+/* style pour image des catégories */
+.image-offcantas {
+  border: 1px solid #ddd; /* Gray border */
+  border-radius: 4px;  /* Rounded border */
+  padding: 5px; /* Some padding */
+  width: 150px; /* Set a small width */
+}
+
+/* Add a hover effect (blue shadow) */
+.image:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
 
 /* .section-content {
     background: linear-gradient(black,#CCADE6, blue);
 } */
 .contenu{
-    margin-top: 4px;
-}
-.category {
-    background: palegreen;
-    /* background: url("/media/category_img/bg.jpg"); */
-    /* background: linear-gradient(black,#CCADE6,blue); */
+  margin-top: 4px;
 }
 
 .recherche {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .text-justify {
-    text-align: justify;
+  text-align: justify;
 }
 
 .float-end {
-    float: inline-end;
+  float: inline-end;
+}
+
+.text-right{
+text-align: right;
 }
 
 .input-group{
-    width: 100%;
+  width: 100%;
 }
 
 .finalisation{
-    margin-left: 2%;
-    margin-right: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 .marge{
-    margin-top: 100px;
+  margin-top: 100px;
 }
 
 .adresse{
-    margin-bottom: 2px;
-    background-color: white;
+  margin-bottom: 2px;
+  background-color: white;
 }
+/* footer */
+.compagny-name {
+  font-family: 'Passions Conflict', cursive, sans-serif;
+  text-align: center;
+  font-size: 2.5em;
+  color: white;
+}
+footer {
+  background:  rgb(203,151,49);
+  color: rgba(244,247,246, 0.9);
+  height: 100%;
+}
+.info {
+  padding-top: 20px;
+}
+.info a {
+  text-decoration: none;
+  color: rgba(244,247,246, 0.9);
+}
+.facture{
+  margin: 50px;
+}
+.texte-footer{
+  padding-bottom: 20px;
+}
+.compagny{
+  font-family: 'Passions Conflict', cursive, sans-serif;
+  font-size: 2.5em;
+  color: #831B74;
+  font-weight: bold;
+}
+.facture-info{
+  border: 1px black outset;
+  /* background: rgba(131,27,116,0.1); */
+}
+.liste-facture{
+  display: inline-block;
+  list-style: none;
+}
+/* __________________________________________________________________________________ */
 
-
-/* <table width="100">
-<tr>
-  <td>
-    <img src="{% static 'payments.png' %}" alt="">
-    <!-- <div class="text-center mt-1">
-      <img src="{% static 'payments.png' %}" alt="">
-    </div> -->
-  </td>
-</tr>
-
-<tr>
-  <td class="d-grid">
-    <a href="{% url 'checkout' %}" class="btn btn-primary btn">Commander</a>
-    <!-- <div class="d-grid text-center mt-5">
-      <a href="{% url 'checkout' %}" class="btn btn-primary btn">Commander</a>
-    </div> -->
-  </td>
-</tr>
-
-<tr>
-  <td>
-    <a href="{% url 'boutique' %}" class="btn bg-light btn">Poursuivre mes achats</a>
-  </td>
-</tr>
-</table> */
+/*  */
+@media all and (max-width: 1000px){
+  *{
+    box-sizing: border-box;
+  }
+  .banner{font-size: 3em;}
+  .banner-size{
+    height: 200px;
+    text-align: center;
+  }
+}

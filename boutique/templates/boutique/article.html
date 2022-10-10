@@ -3,24 +3,14 @@
 {% block titre %}Boutique{% endblock %}
 
 {% block content %}
-<section class="container-fluid mt-2 mb-5">
-    <div class="container">
-        <!-- <div class="card row bg-dark text-white">
-            <div class="card col-12">
-                <img src="{% static 'images/woman.jpg' %}" class="card-img" alt="...">
-            </div>
-        </div> -->
-        <img w-100 src="{% static 'images/cover.jpg' %}" class="img-thumbnail" alt="">
-    </div>
-</section>
 <!-- style="background-color:lightgray;" -->
 <section>
-    <div class="container-fluid">
+    <div class="container">
         <div>
             {% if 'search' in request.path %}
-                <h2 class="text-center">Résultat de la recherche</h2>
+                <h2 class="boutique-texte">Résultat de la recherche</h2>
             {% else %}
-                <h2 class="text-center">Vous êtes chez <span style="color:#821B74">Soso Relooking</span>.</h2>
+                <h2 class="boutique-texte">Vous êtes chez <span style="color:#821B74">Soso Relooking</span>.</h2>
             {% endif %}
         <hr>
         <span class="texte">{{article_count}} article(s) trouvé(s)</span>
@@ -29,12 +19,26 @@
         <div class="row">
             {% if articles %}
                 {% for article in articles %}
-                    <div class="col-lg-4 col-sm-6">
+                    <div class="col-lg-4 col-sm-6 tof">
                         <a href="{{article.get_url}}">
-                            <span><img src="{{article.images.url}}" class="img-thumbnail" alt=""></span>
+                            <span><img src="{{article.images.url}}" class="img-thumbnail" alt="{{article.product_name}}"></span>
                         </a>
-                        <span><h4>{{article.product_name}}</h4></span>
+                        <span>
+                            <h4>{{article.product_name}}</h4>
+                        </span>
+
                         <span class="h5">{{ article.price }}€</span>
+                        
+                        <div class="rating-star">
+                            <span>
+                                <i class="fa{% if article.averageReview < 0.5 %}-regular fa-star {% elif article.averageReview >= 0.5 and article.averageReview < 1 %}-solid fa-star-half-full {% elif article.averageReview >= 1 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                <i class="fa{% if article.averageReview < 1.5 %}-regular fa-star {% elif article.averageReview >= 1.5 and article.averageReview < 2 %}-solid fa-star-half-full {% elif article.averageReview >= 2 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                <i class="fa{% if article.averageReview < 2.5 %}-regular fa-star {% elif article.averageReview >= 2.5 and article.averageReview < 3 %}-solid fa-star-half-full {% elif article.averageReview >= 3 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                <i class="fa{% if article.averageReview < 3.5 %}-regular fa-star {% elif article.averageReview >= 3.5 and article.averageReview < 4 %}-solid fa-star-half-full {% elif article.averageReview >= 4 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                <i class="fa{% if article.averageReview < 4.5 %}-regular fa-star {% elif article.averageReview >= 4.5 and article.averageReview < 5 %}-solid fa-star-half-full {% elif article.averageReview >= 5 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                                <!-- {{article.countReview}} avis -->
+                            </span>
+                        </div>
                         <p class="mt-2"><a href="{{article.get_url}}" class="btn bg-primary btn-sm">voir plus</a></p>
                     </div>
                 {% endfor %}

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-# from decouple import config
+from decouple import config
 # import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p+mmc6x$f+pmu^o$y-6+=nj&!j@fx8q1h&df=_4dkx_@zjg-_g'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['SosoRelooking-site-env.eba-arwrwfe8.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'category',
     'cart',
     'commandes',
+    'admin_honeypot',
 ]
 
 MIDDLEWARE = [
@@ -145,8 +146,9 @@ MESSAGE_TAGS = {
 }
 
 # SMTP configuration
-EMAIL_HOST = 'smtp.gmail.com'                        #config('EMAIL_HOST')
-EMAIL_PORT = 587                                     #config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER = 'markovlegrand19@gmail.com'         #config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = 'eymjuejdnmddmzad'                   #'fhhenxidxzyttmaj'                   #config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True                                 #config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST=config('EMAIL_HOST')
+EMAIL_PORT=config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER =config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
+#'fhhenxidxzyttmaj'                   
+EMAIL_USE_TLS=config('EMAIL_USE_TLS', cast=bool)
