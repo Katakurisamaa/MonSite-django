@@ -31,7 +31,7 @@ SECRET_KEY = env("SECRET_KEY")
 # DEBUG = config('DEBUG', default=True, cast=bool)
 DEBUG = env.bool("DEBUG", False)
 
-
+ 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
