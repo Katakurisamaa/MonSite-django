@@ -11,11 +11,11 @@
                     <div class="row g-0">
                       <div class="col-md-4 mt-2">
                         <article class="mainImage">
-                            <img src="{{ article.images.url }}" class="img-fluid rounded-start" alt="...">
+                            <img src="{{ article.images.url }}" class="img-fluid rounded-start image" alt="{{ article.product_name }}">
                         </article>
                         <ul class="thumb">
                             <li class="">
-                                <a href="{{ article.images.url }}" target="mainImage"><img src="{{ article.images.url }}" alt="Product image" class="image"></a>
+                                <a href="{{ article.images.url }}" target="mainImage"><img src="{{ article.images.url }}" alt="{{ article.product_name }}" class="image"></a>
                                 {% for i in product_gallery %}
                                 <a href="{{i.image.url}}" target="mainImage"><img src="{{i.image.url}}" alt="Product image"></a>
                                 {% endfor %}

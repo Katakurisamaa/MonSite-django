@@ -4,6 +4,7 @@
 
 {% block content %}
 <!-- style="background-color:lightgray;" -->
+
 <section>
     <div class="container">
         <div>
@@ -16,12 +17,12 @@
         <span class="texte">{{article_count}} article(s) trouvé(s)</span>
         <hr>
         </div>
-        <div class="row">
+        <div class="row article-boutique">
             {% if articles %}
                 {% for article in articles %}
                     <div class="col-lg-4 col-sm-6 tof">
                         <a href="{{article.get_url}}">
-                            <span><img src="{{article.images.url}}" class="img-thumbnail" alt="{{article.product_name}}"></span>
+                            <span><img src="{{article.images.url}}" class="article-img" alt="{{article.product_name}}"></span>
                         </a>
                         <span>
                             <h4>{{article.product_name}}</h4>

@@ -2,39 +2,43 @@
 {% load static %}
 {% block titre %} Accueil {% endblock %}
 {% block content %}
-<body>
-  <section>
-		<div class="container-sm" id="banner">
-      <div class="banner-size">
-        <span class="banner">Bienvenue chez Soso Relooking</span>
-      </div>
-		</div>
-	</section>
-  
-  <section id="accueil" class="article-accueil">
-    <div class="container">
-      <div class="row">
-        {% for article in articles %}
-          <div class="col-lg-4 col-sm-6 tof">
-            <a href="{{article.get_url}}">
-              <span><img src="{{article.images.url}}" class="img-thumbnail" alt="{{article.product_name}}" height="300" width="300" style="margin:0;"></span>
-            </a>
-            <h3 class="article-tile">{{article.product_name}}</h3 class="article-tile">
-            <div class="rating-star">
-                <span>
-                    <i class="fa{% if article.averageReview < 0.5 %}-regular fa-star {% elif article.averageReview >= 0.5 and article.averageReview < 1 %}-solid fa-star-half-full {% elif article.averageReview >= 1 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
-                    <i class="fa{% if article.averageReview < 1.5 %}-regular fa-star {% elif article.averageReview >= 1.5 and article.averageReview < 2 %}-solid fa-star-half-full {% elif article.averageReview >= 2 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
-                    <i class="fa{% if article.averageReview < 2.5 %}-regular fa-star {% elif article.averageReview >= 2.5 and article.averageReview < 3 %}-solid fa-star-half-full {% elif article.averageReview >= 3 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
-                    <i class="fa{% if article.averageReview < 3.5 %}-regular fa-star {% elif article.averageReview >= 3.5 and article.averageReview < 4 %}-solid fa-star-half-full {% elif article.averageReview >= 4 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
-                    <i class="fa{% if article.averageReview < 4.5 %}-regular fa-star {% elif article.averageReview >= 4.5 and article.averageReview < 5 %}-solid fa-star-half-full {% elif article.averageReview >= 5 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
-                    <!-- {{article.countReview}} avis -->
-                </span>
-            </div>
-            <p class="article-detail"><a href="{{article.get_url}}" class="btn bg-primary btn-sm">Détails</a></p>
-          </div>
-        {% endfor %}
-      </div>
+
+<section>
+  <hr>
+  <hr>
+  <div class="container-sm" id="banner">
+    <div class="banner-size">
+      <span class="banner">Bienvenue chez Soso Relooking</span>
     </div>
-  </section>
-</body>
+  </div>
+  <hr>
+  <hr>
+</section>
+
+<section id="accueil" class="article-accueil">
+  <div class="container">
+    <div class="row">
+      {% for article in articles %}
+        <div class="col-lg-4 col-sm-6">
+          <a href="{{article.get_url}}" class="">
+            <img src="{{article.images.url}}" class="img-thumbnail article-img" alt="{{article.product_name}}">
+          </a>
+          <h3 class="article-tile">{{article.product_name}}</h3 class="article-tile">
+          <div class="rating-star">
+              <span>
+                  <i class="fa{% if article.averageReview < 0.5 %}-regular fa-star {% elif article.averageReview >= 0.5 and article.averageReview < 1 %}-solid fa-star-half-full {% elif article.averageReview >= 1 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                  <i class="fa{% if article.averageReview < 1.5 %}-regular fa-star {% elif article.averageReview >= 1.5 and article.averageReview < 2 %}-solid fa-star-half-full {% elif article.averageReview >= 2 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                  <i class="fa{% if article.averageReview < 2.5 %}-regular fa-star {% elif article.averageReview >= 2.5 and article.averageReview < 3 %}-solid fa-star-half-full {% elif article.averageReview >= 3 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                  <i class="fa{% if article.averageReview < 3.5 %}-regular fa-star {% elif article.averageReview >= 3.5 and article.averageReview < 4 %}-solid fa-star-half-full {% elif article.averageReview >= 4 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                  <i class="fa{% if article.averageReview < 4.5 %}-regular fa-star {% elif article.averageReview >= 4.5 and article.averageReview < 5 %}-solid fa-star-half-full {% elif article.averageReview >= 5 %}-solid fa-star {% endif %}" aria-hidden="true"></i>
+                  <!-- {{article.countReview}} avis -->
+              </span>
+          </div>
+          <p class="article-detail"><a href="{{article.get_url}}" class="btn bg-primary btn-sm">Détails</a></p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
 {% endblock %}

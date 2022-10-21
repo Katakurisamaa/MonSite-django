@@ -25,13 +25,13 @@
     <div class="card-body mb-4">
       <div class="row clearfix">
         {% for cart_item in cart_items %}
-        <div class="col-sm-6 mt-2" id="{{cart_item.product.product_name}}">
+        <div class="col-sm-6 mt-2">
           <a href="{{cart_item.product.get_url}}">
-            <img src="{{ cart_item.product.images.url }}" class="figure-img img-fluid rounded" alt="{{cart_item.product.name}}" id="img">
+            <img src="{{ cart_item.product.images.url }}" class="figure-img img-fluid rounded" alt="{{cart_item.product.name}}" id="{{cart_item.product.product_name}}">
           </a>
         </div>
         <div class="col-sm-6 mb-2">
-             {{ cart_item.product.product_name }} <span style="color:red;">({{cart_item.product.stock}} en stock)</span>.
+             {{ cart_item.product.product_name }}
             <br>
             <span class="text-muted">
               <b>
@@ -42,44 +42,37 @@
                 {% endif %}
               </b>
             </span>
-            <span class="text-muted">Prix de l'article :</span>
-            <span class="text-muted">{{ cart_item.product.price }}€</span>
+            <span>Prix de l'article :</span>
+            <span>{{ cart_item.product.price }}€</span>
             <br>
-            <span class="mb-2">À payer :</span>
+            <span class="mb-2"><abbr title="Total">Qté*prix</abbr> :</span>
             <span class="">{{ cart_item.sub_total}}€</span>
             <div class="row mt-2">
 
-              <div  class="col-12 input-minus me-2 mt-1">
+              <div  class="col-4 input-minus">
                 <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}#{{cart_item.product.product_name}}" class="btn" style="background-color:whitesmoke;" type="button"><i class="fa fa-minus"></i></a>
-                <!--  -->
-                {% if cart_item.quantity <= cart_item.product.stock %}
-                <span>{{ cart_item.quantity }}</span>
-                {% else %}
-                <span onclick="return confirm('Êtes-vous sûre de vouloir supprimer cet article?')">{{ cart_item.product.stock }}</span>
-                {%endif%}
-                <a href="{% url 'add_cart' cart_item.product.id %}#{{cart_item.product.product_name}}" style="background-color:whitesmoke;" class="btn btn-light" type="submit" id="plus"><i class="fa fa-plus"></i></a>
+              
               </div>
               
-              <!-- <div class="col-4 inline-block">
-                <form action="">
-                  {% if cart_item.quantity <= cart_item.product.stock %}
+              <div class="col-4">
+                {{ cart_item.quantity }}
+                <!-- <form action="">
                   <input type="number" min="0" max="{{cart_item.product.stock}}" class="form-control text-center" value="{{ cart_item.quantity }}">
-                  {% else %}
-                  <input type="number" min="0" max="{{cart_item.product.stock}}" class="form-control text-center" value="{{cart_item.product.stock}}">
-                  {%endif%}
-                </form>
+                </form> -->
                 
               </div>
 
-              <div class="col-2 input-plus me-1 mt-1 form">
+              <div class="col-4">
                 <form action="{% url 'add_cart' cart_item.product.id %}#{{cart_item.product.product_name}}" method="POST">
                   {% csrf_token %}
                   {% for item in cart_item.variations.all %}
                   <input type="hidden" name="{{ item.variation_category | lower }}" value="{{ item.variation_value | capfirst }}">
 									{% endfor %}
+                  {% if cart_item.quantity < cart_item.product.stock %}
                   <button style="background-color:whitesmoke;" class="btn btn-light" type="submit" id="plus"><i class="fa fa-plus"></i></button>
+                  {%endif%}
                 </form>
-              </div> -->
+              </div>
 
               <div class="d-grid text-center mt-2">
                 <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}" onclick="return confirm('Êtes-vous sûre de vouloir supprimer cet article?')" class="btn btn-danger">Supprimer</a>

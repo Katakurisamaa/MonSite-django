@@ -13,21 +13,27 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env=environ.Env()
+environ.Env.read_env(env_file=str(BASE_DIR/"Monsite"/".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+# DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = env.bool("DEBUG", False)
 
-ALLOWED_HOSTS = ['sosorelooking-env.eba-m3rcbnwp.eu-west-3.elasticbeanstalk.com']
 
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 # Application definition
 
@@ -103,12 +109,12 @@ else:
     }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
@@ -167,9 +173,18 @@ MESSAGE_TAGS = {
 }
 
 # SMTP configuration
-EMAIL_HOST=config('EMAIL_HOST')
-EMAIL_PORT=config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER =config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST=config('EMAIL_HOST')
+EMAIL_HOST=env("EMAIL_HOST")
+
+# EMAIL_PORT=config('EMAIL_PORT', cast=int)
+EMAIL_PORT=env.int("EMAIL_PORT")
+
+# EMAIL_HOST_USER =config('EMAIL_HOST_USER')
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+
+# EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+
 #'fhhenxidxzyttmaj'                   
-EMAIL_USE_TLS=config('EMAIL_USE_TLS', cast=bool)
+# EMAIL_USE_TLS=config('EMAIL_USE_TLS', cast=bool)
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS")

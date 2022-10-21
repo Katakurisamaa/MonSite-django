@@ -1,3 +1,7 @@
+html{
+  scroll-behavior: smooth;
+}
+
 body {
   font-family:'Roboto', sans-serif;
   background: #F4F7F6;
@@ -25,13 +29,13 @@ input {
   overflow: hidden;
 }
 /* Classe */
-.banner-size{
+/* .banner-size{
   width: 100%;
   height: 300px;
   background: rgba(203,151,49,0.5);
   border: 0px black solid;
   border-radius: 15px;
-}
+} */
 .banner{
   font-size: 6.5em;
   text-align: center;
@@ -43,18 +47,11 @@ input {
 
 .article-accueil{
   margin-top: 100px;
+  text-align: center;
 }
-.tof{
-	text-shadow: 0 3px 6px rgba(0,0,0,0.16);
-}
-.tof img {
-	width: 100%;
-  height: 260px;
-  padding-bottom: 15px;
-	border: 0px black solid;
-	border-radius: 10px;
-	overflow: hidden;
-	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+.article-boutique{
+  text-align: center;
 }
 .boutique-texte{
   font-family: 'Passions Conflict', cursive, sans-serif;
@@ -89,7 +86,15 @@ input {
   width: 150px; /* Set a small width */
 }
 
+
+
 /* Add a hover effect (blue shadow) */
+.image{
+  height: 360px;
+  width: 100%;
+  border: 0px black solid;
+	border-radius: 10px;
+}
 .image:hover {
   box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
@@ -174,6 +179,22 @@ footer {
 }
 /* __________________________________________________________________________________ */
 
+.article-img{
+  height: 360px;
+  width: 100%;
+  border: 0px black solid;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.article-img:hover{
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	transition: 0.3s;
+}
+.container img{
+  text-align: center;
+}
 /*  */
 @media all and (max-width: 1000px){
   *{
